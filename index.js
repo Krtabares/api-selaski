@@ -14,9 +14,9 @@ app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
 
-app.use("/orders", ordersRouter);
-app.use("/products", productsRouter);
-app.use("/users", usersRouter);
+app.use("/api/v1/orders", ordersRouter);
+app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/users", usersRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
