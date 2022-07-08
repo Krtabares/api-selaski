@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.62, for Win64 (AMD64)
 --
--- Host: localhost    Database: api-Rest
+-- Host: localhost    Database: api-rest
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.4.21-MariaDB
 
@@ -35,7 +35,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`idOrder`),
   KEY `orders_FK` (`idUser`),
   CONSTRAINT `orders_FK` FOREIGN KEY (`idUser`) REFERENCES `users` (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,2,92,'08/11/2022','Quis Accumsan Convallis Ltd','nunc sed pede. Cum sociis natoque penatibus et','$2879.51','0','10/21/2022'),(2,5,42,'09/25/2021','Laoreet Corporation','sed, sapien. Nunc pulvinar arcu et','$6389.66','0','10/19/2021'),(3,5,13,'05/02/2022','Parturient Foundation','placerat eget, venenatis a, magna. Lorem','$7044.06','1','08/22/2022'),(4,2,90,'01/21/2023','At Pretium Industries','non magna. Nam ligula','$5132.12','1','09/18/2022'),(5,3,97,'02/23/2023','Proin Vel LLC','at pede. Cras vulputate velit eu sem. Pellentesque ut','$5695.47','1','05/22/2022'),(6,1,15632,'16/9/2022','Empresa uno editado','no tiene editanddo','$255','1','2022-07-05 22:21:11');
+INSERT INTO `orders` VALUES (3,5,13,'05/02/2022','Parturient Foundation','placerat eget, venenatis a, magna. Lorem','$7044.06','1','08/22/2022'),(4,2,90,'2022-07-14','At Pretium Industries','non magna. Nam ligula','$5132.12','1','09/18/2022'),(5,3,97,'02/23/2023','Proin Vel LLC','at pede. Cras vulputate velit eu sem. Pellentesque ut','$5695.47','1','05/22/2022'),(16,2,2342,'2022-07-07','Quis Accumsan Convallis Ltde','sed, sapien. Nunc pulvinar arcu et2s','287.91','1','2022-07-07 21:57:44');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,9 +69,9 @@ CREATE TABLE `ordersproducts` (
   `Mark` varchar(255) DEFAULT NULL,
   `Status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idOrdersProducts`),
-  KEY `ordersproducts_FK` (`idOrder`),
-  CONSTRAINT `ordersproducts_FK` FOREIGN KEY (`idOrder`) REFERENCES `orders` (`idOrder`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  KEY `ordersproducts_FK_1` (`idOrder`),
+  CONSTRAINT `ordersproducts_FK_1` FOREIGN KEY (`idOrder`) REFERENCES `orders` (`idOrder`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `ordersproducts` (
 
 LOCK TABLES `ordersproducts` WRITE;
 /*!40000 ALTER TABLE `ordersproducts` DISABLE KEYS */;
-INSERT INTO `ordersproducts` VALUES (1,2,'$9.14','cm','nunc sed pede. Cum sociis natoque penatibus et','TCT16YRT4XQ',10,4,'5.38','2.92','Semper Egestas Ltd','0'),(2,5,'$51.76','cm','sed, sapien. Nunc pulvinar arcu et','YGY51WZI6YJ',8,1,'6.66','2.20','Mus Proin Vel Industries','0'),(3,5,'$29.16','kg','placerat eget, venenatis a, magna. Lorem','JSL05UNJ7HJ',6,1,'6.54','1.10','Nunc Interdum PC','1'),(4,2,'$89.60','kg','non magna. Nam ligula','BJC32PKK1OI',10,6,'5.17','3.41','Quisque Fringilla Foundation','1'),(5,3,'$84.32','libras','at pede. Cras vulputate velit eu sem. Pellentesque ut','FMM23JAY7TW',1,3,'3.73','1.79','Et Malesuada Fames PC','1'),(6,1,'$5.55','cm','holamundo edit','32165445678',1,12,'1.33','2.33','mi marka','1'),(7,1,'$5.55','cm','holamundo edit','32165445678',1,12,'1.33','2.33','mi marka','1');
+INSERT INTO `ordersproducts` VALUES (2,5,'100','cm','sed, sapien. Nunc pulvinar arcu et','YGY51WZI6YJ',8,1,'6.66','2.20','Mus Proin Vel Industries','1'),(3,5,'$29.16','kg','placerat eget, venenatis a, magna. Lorem','JSL05UNJ7HJ',6,1,'6.54','1.10','Nunc Interdum PC','1');
 /*!40000 ALTER TABLE `ordersproducts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +111,7 @@ INSERT INTO `users` VALUES (1,'Risa Andrews','ut@protonmail.ca','0'),(2,'Anika W
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'api-Rest'
+-- Dumping routines for database 'api-rest'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -123,4 +123,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-06  0:33:19
+-- Dump completed on 2022-07-08  0:12:07
