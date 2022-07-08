@@ -3,9 +3,9 @@ const router = express.Router();
 const products = require('../services/products');
 
 
-router.get('/', async function(req, res, next) {
+router.get('/:id', async function(req, res, next) {
   try {
-    res.json(await products.getMultiple(req.query.page));
+    res.json(await products.getMultiple(req.params.id, req.query.page));
   } catch (err) {
     console.error(`Error while getting products `, err.message);
     next(err);
@@ -33,9 +33,18 @@ router.put('/:id', async function(req, res, next) {
 
 router.delete('/:id', async function(req, res, next) {
   try {
-    res.json(await orders.remove(req.params.id));
+    res.json(await products.remove(req.params.id));
   } catch (err) {
     console.error(`Error while deleting products`, err.message);
+    next(err);
+  }
+});
+
+router.delete('/all/:id', async function(req, res, next) {
+  try { 
+    res.json(await products.removeAll(req.params.id));
+  } catch (err) {
+    console.error(`Error while all deleting products`, err.message);
     next(err);
   }
 });

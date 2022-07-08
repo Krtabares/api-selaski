@@ -2,13 +2,14 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
-async function getMultiple(page = 1){
+async function getMultiple(id, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
+
   const rows = await db.query(
     `SELECT idOrdersProducts, idOrder, ValueUnit, Unit, Description, SKU, Quantity, QtyBox, Weight, Volumen, Mark, Status
-    FROM ordersproducts LIMIT ${offset},${config.listPerPage}`
+    FROM ordersproducts WHERE idOrder=${id} `
   );
-  const data = helper.emptyOrRows(rows);
+  const data = helper.emptyOrRows(rows, true);
   const meta = {page};
 
   return {
@@ -28,22 +29,23 @@ async function create(product){
         \'${product.ValueUnit}\',
         \'${product.Unit}\',
         \'${product.Description}\',
-        ${product.SKU},
+        \'${product.SKU}\',
         ${product.Quantity},
         ${product.QtyBox},
-        ${product.Weight},
-        ${product.Volumen},
+        \'${product.Weight}\',
+        \'${product.Volumen}\',
         \'${product.Mark}\',
         ${product.Status})`
     );
   
-    let message = 'Error in creating Order';
-  
+    let message = 'Error in creating product';
+    let id =null;
     if (result.affectedRows) {
-      message = 'Order created successfully';
+      message = 'Product created successfully';
+      id = await db.query('SELECT LAST_INSERT_ID()')
     }
   
-    return {message};
+    return {message,id};
   }
 
 async function update(id, product){
@@ -77,9 +79,24 @@ async function remove(id){
     return {message};
   }
 
+  async function removeAll(id){
+    const result = await db.query(
+      `DELETE FROM ordersproducts WHERE idOrder=${id}`
+    );
+  
+    let message = 'Error in deleting order';
+  
+    if (result.affectedRows) {
+      message = 'Order deleted successfully';
+    }
+  
+    return {message};
+  }
+
   module.exports = {
     getMultiple,
     create,
     update,
-    remove
+    remove,
+    removeAll
   };

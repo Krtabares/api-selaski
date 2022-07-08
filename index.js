@@ -10,6 +10,14 @@ app.use(
     extended: true,
   })
 );
+
+const cors = require('cors');
+
+app.use(cors({
+    origin: '*'
+}));
+
+
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
@@ -17,6 +25,8 @@ app.get("/", (req, res) => {
 app.use("/api/v1/orders", ordersRouter);
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/users", usersRouter);
+
+
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

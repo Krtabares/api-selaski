@@ -24,12 +24,11 @@ async function create(order){
       `INSERT INTO orders
       (idUser, OrderNumber, DateTime, ProviderName, Observation, TotalValue, Status, DateCreated)
       VALUES
-      (${order.idUser}, ${order.OrderNumber}, \'${order.DateTime}\', \'${order.ProviderName}\', 
+      (${order.idUser}, \'${order.OrderNumber}\', \'${order.DateTime}\', \'${order.ProviderName}\', 
       \'${order.Observation}\',  \'${order.TotalValue}\',  ${order.Status}, NOW() )`
     );
   
     let message = 'Error in creating Order';
-  
     if (result.affectedRows) {
       message = 'Order created successfully';
     }
@@ -50,6 +49,7 @@ async function update(id, order){
   
     if (result.affectedRows) {
       message = 'Order updated successfully';
+      
     }
   
     return {message};
